@@ -12,6 +12,7 @@
     <modules>
         <module>jaxrs-unit-api</module>
         <module>jaxrs-unit-tck</module>
+        <module>jaxrs-unit-resteasy</module>
     </modules>
 
     <properties>

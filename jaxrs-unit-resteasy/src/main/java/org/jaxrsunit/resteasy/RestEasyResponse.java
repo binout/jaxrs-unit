@@ -13,11 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jaxrsunit;
+package org.jaxrsunit.resteasy;
 
-public interface JaxrsServer {
+import org.jaxrsunit.JaxrsResponse;
+import org.jboss.resteasy.mock.MockHttpResponse;
 
-    void addResources(Class<?>... resourceClasses);
+import javax.ws.rs.core.Response;
 
-    JaxrsResource resource(String uri);
+public class RestEasyResponse implements JaxrsResponse {
+
+    private MockHttpResponse mockResponse;
+
+    RestEasyResponse(MockHttpResponse mockResponse) {
+        this.mockResponse = mockResponse;
+    }
+
+    @Override
+    public String content() {
+        return mockResponse.getContentAsString();
+    }
+
+    @Override
+    public boolean ok() {
+        return Response.Status.OK.getStatusCode() == mockResponse.getStatus();
+    }
 }

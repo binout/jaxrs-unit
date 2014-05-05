@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jaxrsunit;
+package org.jaxrsunit.resteasy;
 
-public interface JaxrsServer {
+import org.jaxrsunit.tck.HelloTest;
 
-    void addResources(Class<?>... resourceClasses);
-
-    JaxrsResource resource(String uri);
+public class HelloRestEasyTest extends HelloTest {
 }

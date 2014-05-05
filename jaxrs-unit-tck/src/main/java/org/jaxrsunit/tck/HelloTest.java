@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class HelloTest {
 
     @Path("/hello")
-    public class HelloResource {
+    public static class HelloResource {
         @GET
         public String hello() {
             return "hello";
@@ -41,8 +41,7 @@ public class HelloTest {
 
     @Before
     public void init() {
-        server = JaxrsUnit.newServer();
-        server.addResource(HelloResource.class);
+        server = JaxrsUnit.newServer(HelloResource.class);
     }
 
     @Test

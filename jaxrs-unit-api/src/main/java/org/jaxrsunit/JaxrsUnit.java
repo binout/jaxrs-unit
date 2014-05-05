@@ -15,9 +15,20 @@
  */
 package org.jaxrsunit;
 
+import java.util.Iterator;
+import java.util.ServiceLoader;
+
 public class JaxrsUnit {
 
-    public static JaxrsServer newServer() {
-        return null;
+    public static JaxrsServer newServer(Class<?>... resources) {
+        ServiceLoader<JaxrsServer> serviceLoader = ServiceLoader.load(JaxrsServer.class);
+        Iterator<JaxrsServer> iterator = serviceLoader.iterator();
+        if (iterator.hasNext()) {
+            JaxrsServer jaxrsServer = iterator.next();
+            jaxrsServer.addResources(resources);
+            return jaxrsServer;
+        } else {
+            throw new RuntimeException("No implemention found for JaxrsServer");
+        }
     }
 }
