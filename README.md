@@ -26,36 +26,79 @@ mvn clean verify
 
 ## Maven
 
-Release versions are deployed on Maven Central:
+Release versions are deployed on my repository :
+
+```xml
+<repository>
+    <id>binout-cloudbees-release</id>
+    <name>binout-cloudbees-release</name>
+    <url>https://repository-binout.forge.cloudbees.com/release/</url>
+</repository>
+```
+
+You have to add api dependency :
 
 ```xml
 <dependency>
-  <groupId>net.code-story</groupId>
-  <artifactId>http</artifactId>
-  <version>1.51</version>
+    <groupId>org.jaxrs-unit</groupId>
+    <artifactId>jaxrs-unit-api</artifactId>
+    <version>${version}</version>
+    <scope>test</scope>
+</dependency>
+```
+
+You have to choose an implementation :
+
+- RestEasy
+```xml
+<dependency>
+    <groupId>org.jaxrs-unit</groupId>
+    <artifactId>jaxrs-unit-resteasy</artifactId>
+    <version>${version}</version>
+    <scope>test</scope>
+</dependency>
+```
+- Jersey
+```xml
+<dependency>
+    <groupId>org.jaxrs-unit</groupId>
+    <artifactId>jaxrs-unit-jersey</artifactId>
+    <version>${version}</version>
+    <scope>test</scope>
 </dependency>
 ```
 
 ## Hello World
 
-Starting a web server that responds `Hello World` on `/` uri is as simple as that:
-
+Considering a JAX-RS resource :
 ```java
-import net.codestory.http.*;
-
-public class HelloWorld {
-  public static void main(String[] args) {
-    new WebServer(routes -> routes.get("/", "Hello World")).start();
-  }
+@Path("/hello")
+public class HelloResource {
+    @GET
+    public String hello() {
+        return "hello";
+    }
 }
 ```
 
-Adding more routes is not hard either:
-
+You can write a unit test like this :
 ```java
-new WebServer(routes -> routes.
-    get("/", "Hello World").
-    get("/Test", "Test").
-    get("/OtherTest", "Other Test")
-).start();
+public class HelloTest {
+    private JaxrsServer server;
+
+    @Before
+    public void init() {
+        server = JaxrsUnit.newServer(HelloResource.class);
+    }
+
+    @Test
+    public void should_return_hello() {
+        JaxrsResource resource = server.resource("/hello");
+
+        JaxrsResponse response = resource.get();
+
+        assertThat(response.ok()).isTrue();
+        assertThat(response.content()).isEqualTo("hello");
+    }
+}
 ```
