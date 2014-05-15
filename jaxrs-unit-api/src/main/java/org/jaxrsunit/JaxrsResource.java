@@ -24,4 +24,6 @@ public interface JaxrsResource {
     JaxrsResponse delete();
 
     JaxrsResponse get(String mediaType);
+
+    JaxrsResponse put(String body);
 }

@@ -68,6 +68,17 @@ public class RestEasyResource implements JaxrsResource {
     }
 
     @Override
+    public JaxrsResponse put(String body) {
+        try {
+            MockHttpRequest request = MockHttpRequest.put(uri);
+            request.content(body.getBytes());
+            return executeRequest(request);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public JaxrsResponse delete() {
         try {
             return executeRequest(MockHttpRequest.delete(uri));

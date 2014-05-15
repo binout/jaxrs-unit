@@ -22,10 +22,7 @@ import org.jaxrsunit.JaxrsUnit;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,6 +42,10 @@ public class MessageTest {
         public Response setMessage(String msg) {
             message = msg;
             return Response.status(Response.Status.CREATED).build();
+        }
+        @PUT
+        public Response setMessage2(String msg) {
+            return setMessage(msg);
         }
         @DELETE
         public Response clearMessage() {
@@ -71,8 +72,16 @@ public class MessageTest {
     }
 
     @Test
-    public void should_set_message() {
+    public void should_set_message_with_post() {
         JaxrsResponse response = resource.post("A new message");
+
+        assertThat(response.created()).isTrue();
+        assertThat(MessageResource.message).isEqualTo("A new message");
+    }
+
+    @Test
+    public void should_set_message_with_put() {
+        JaxrsResponse response = resource.put("A new message");
 
         assertThat(response.created()).isTrue();
         assertThat(MessageResource.message).isEqualTo("A new message");
