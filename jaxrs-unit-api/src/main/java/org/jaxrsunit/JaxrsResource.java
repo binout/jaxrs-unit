@@ -39,4 +39,5 @@ public interface JaxrsResource {
 
     JaxrsResponse delete();
 
+    JaxrsResponse head();
 }

@@ -61,6 +61,15 @@ public class AcceptTest {
     }
 
     @Test
+    public void should_return_headers_of_hello() {
+        JaxrsResponse response = resource.head();
+
+        assertThat(response.ok()).isTrue();
+        assertThat(response.contentType()).isEqualTo(MediaType.APPLICATION_JSON);
+        assertThat(response.mediaType()).isEqualTo(MediaType.APPLICATION_JSON_TYPE);
+    }
+
+    @Test
     public void should_not_return_hello_because_content_negotiation_failed() {
         JaxrsResponse response = resource.get(MediaType.APPLICATION_XML);
 

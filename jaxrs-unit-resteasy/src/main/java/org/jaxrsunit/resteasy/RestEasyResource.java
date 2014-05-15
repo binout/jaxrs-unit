@@ -114,4 +114,12 @@ public class RestEasyResource implements JaxrsResource {
         }
     }
 
+    @Override
+    public JaxrsResponse head() {
+        try {
+            return executeRequest(MockHttpRequest.head(uri));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }    }
+
 }
