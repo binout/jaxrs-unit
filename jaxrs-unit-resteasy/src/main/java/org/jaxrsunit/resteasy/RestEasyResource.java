@@ -25,8 +25,8 @@ import java.net.URISyntaxException;
 
 public class RestEasyResource implements JaxrsResource {
 
-    private Dispatcher dispatcher;
-    private String uri;
+    private final Dispatcher dispatcher;
+    private final String uri;
 
     RestEasyResource(Dispatcher dispatcher, String uri) {
        this.dispatcher = dispatcher;
