@@ -98,3 +98,23 @@ public class HelloTest {
     }
 }
 ```
+
+## TCK statistics
+
+<table>
+<tr>
+    <th></th>
+    <th>RestEasy</th>
+    <th>Jersey</th>
+</tr>
+<tr>
+    <th>HelloTest</th>
+    <td>0,243 s</td>
+    <td>0,9 s</td>
+</tr>
+<tr>
+    <th>MessageTest</th>
+    <td>0,278 s</td>
+    <td>1 s</td>
+</tr>
+</table>
