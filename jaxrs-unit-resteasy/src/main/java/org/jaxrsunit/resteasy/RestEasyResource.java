@@ -33,13 +33,36 @@ public class RestEasyResource implements JaxrsResource {
        this.uri = uri;
     }
 
+    private JaxrsResponse executeRequest(MockHttpRequest request) {
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+        return new RestEasyResponse(response);
+    }
+
     @Override
     public JaxrsResponse get() {
         try {
-            MockHttpRequest request = MockHttpRequest.get(uri);
-            MockHttpResponse response = new MockHttpResponse();
-            dispatcher.invoke(request, response);
-            return new RestEasyResponse(response);
+            return executeRequest(MockHttpRequest.get(uri));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public JaxrsResponse post(String body) {
+        try {
+            MockHttpRequest request = MockHttpRequest.post(uri);
+            request.content(body.getBytes());
+            return executeRequest(request);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public JaxrsResponse delete() {
+        try {
+            return executeRequest(MockHttpRequest.delete(uri));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

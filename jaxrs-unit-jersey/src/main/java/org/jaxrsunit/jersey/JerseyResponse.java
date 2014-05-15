@@ -33,8 +33,17 @@ public class JerseyResponse implements JaxrsResponse {
         return clientResponse.getEntity(String.class);
     }
 
+    private boolean isStatus(Response.Status status) {
+        return clientResponse.getStatus() == status.getStatusCode();
+    }
+
     @Override
     public boolean ok() {
-        return clientResponse.getStatus() == Response.Status.OK.getStatusCode();
+        return isStatus(Response.Status.OK);
+    }
+
+    @Override
+    public boolean created() {
+        return isStatus(Response.Status.CREATED);
     }
 }

@@ -20,4 +20,6 @@ public interface JaxrsResponse {
     String content();
 
     boolean ok();
+
+    boolean created();
 }

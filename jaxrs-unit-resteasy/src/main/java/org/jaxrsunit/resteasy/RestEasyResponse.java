@@ -33,8 +33,17 @@ public class RestEasyResponse implements JaxrsResponse {
         return mockResponse.getContentAsString();
     }
 
+    private boolean isStatus(Response.Status status) {
+        return status.getStatusCode() == mockResponse.getStatus();
+    }
+
     @Override
     public boolean ok() {
-        return Response.Status.OK.getStatusCode() == mockResponse.getStatus();
+        return isStatus(Response.Status.OK);
+    }
+
+    @Override
+    public boolean created() {
+        return isStatus(Response.Status.CREATED);
     }
 }

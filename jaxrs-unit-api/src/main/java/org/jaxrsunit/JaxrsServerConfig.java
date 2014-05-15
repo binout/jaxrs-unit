@@ -15,9 +15,23 @@
  */
 package org.jaxrsunit;
 
-public interface JaxrsServer {
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 
-    void configure(JaxrsServerConfig config);
+public class JaxrsServerConfig {
 
-    JaxrsResource resource(String uri);
+    private Collection<Class<?>> resourceClasses;
+
+    public JaxrsServerConfig() {
+        resourceClasses = new LinkedList<>();
+    }
+
+    public void addResources(Class<?>... classes) {
+        resourceClasses.addAll(Arrays.asList(classes));
+    }
+
+    public Collection<Class<?>> getResources() {
+        return resourceClasses;
+    }
 }

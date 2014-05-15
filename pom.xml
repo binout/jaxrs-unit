@@ -9,6 +9,10 @@
     <version>1.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>JaxRs Unit</name>
+    <description>A library for unit testing of JAX-RS application</description>
+    <url>https://github.com/binout/jaxrs-unit</url>
+
     <modules>
         <module>jaxrs-unit-api</module>
         <module>jaxrs-unit-tck</module>
@@ -17,6 +21,12 @@
     </modules>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
+
         <lib.jsr311-api.version>1.1</lib.jsr311-api.version>
     </properties>
 

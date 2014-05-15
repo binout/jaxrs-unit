@@ -32,4 +32,14 @@ public class JerseyResource implements JaxrsResource {
     public JaxrsResponse get() {
         return new JerseyResponse(webResource.get(ClientResponse.class));
     }
+
+    @Override
+    public JaxrsResponse post(String body) {
+        return new JerseyResponse(webResource.post(ClientResponse.class, body));
+    }
+
+    @Override
+    public JaxrsResponse delete() {
+        return new JerseyResponse(webResource.delete(ClientResponse.class));
+    }
 }

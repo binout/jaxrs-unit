@@ -18,4 +18,8 @@ package org.jaxrsunit;
 public interface JaxrsResource {
 
     JaxrsResponse get();
+
+    JaxrsResponse post(String body);
+
+    JaxrsResponse delete();
 }

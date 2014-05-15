@@ -25,7 +25,9 @@ public class JaxrsUnit {
         Iterator<JaxrsServer> iterator = serviceLoader.iterator();
         if (iterator.hasNext()) {
             JaxrsServer jaxrsServer = iterator.next();
-            jaxrsServer.addResources(resources);
+            JaxrsServerConfig config = new JaxrsServerConfig();
+            config.addResources(resources);
+            jaxrsServer.configure(config);
             return jaxrsServer;
         } else {
             throw new RuntimeException("No implemention found for JaxrsServer");
