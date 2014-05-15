@@ -13,35 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jaxrsunit.jersey;
+package org.jaxrsunit.internal;
 
-import com.sun.jersey.api.client.ClientResponse;
-import org.jaxrsunit.internal.AbstractJaxrsResponse;
+import org.jaxrsunit.JaxrsResponse;
 
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class JerseyResponse extends AbstractJaxrsResponse {
+public abstract class AbstractJaxrsResponse implements JaxrsResponse {
 
-    private final ClientResponse clientResponse;
+    protected abstract boolean isStatus(Response.Status status);
 
-    JerseyResponse(ClientResponse clientResponse) {
-        this.clientResponse = clientResponse;
+    @Override
+    public boolean ok() {
+        return isStatus(Response.Status.OK);
     }
 
     @Override
-    public String content() {
-        return clientResponse.getEntity(String.class);
+    public boolean created() {
+        return isStatus(Response.Status.CREATED);
     }
 
     @Override
-    protected boolean isStatus(Response.Status status) {
-        return clientResponse.getStatus() == status.getStatusCode();
+    public boolean notAcceptable() {
+        return isStatus(Response.Status.NOT_ACCEPTABLE);
     }
 
     @Override
-    public MediaType mediaType() {
-        return clientResponse.getType();
+    public boolean unsupportedMediaType() {
+        return isStatus(Response.Status.UNSUPPORTED_MEDIA_TYPE);
     }
 
+    @Override
+    public String contentType() {
+        return mediaType().toString();
+    }
 }

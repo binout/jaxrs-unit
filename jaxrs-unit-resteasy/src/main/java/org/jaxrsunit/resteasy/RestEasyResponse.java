@@ -15,14 +15,14 @@
  */
 package org.jaxrsunit.resteasy;
 
-import org.jaxrsunit.JaxrsResponse;
+import org.jaxrsunit.internal.AbstractJaxrsResponse;
 import org.jboss.resteasy.mock.MockHttpResponse;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-public class RestEasyResponse implements JaxrsResponse {
+public class RestEasyResponse extends AbstractJaxrsResponse {
 
     private MockHttpResponse mockResponse;
 
@@ -35,39 +35,15 @@ public class RestEasyResponse implements JaxrsResponse {
         return mockResponse.getContentAsString();
     }
 
-    private boolean isStatus(Response.Status status) {
+    @Override
+    protected boolean isStatus(Response.Status status) {
         return status.getStatusCode() == mockResponse.getStatus();
-    }
-
-    @Override
-    public boolean ok() {
-        return isStatus(Response.Status.OK);
-    }
-
-    @Override
-    public boolean created() {
-        return isStatus(Response.Status.CREATED);
-    }
-
-    @Override
-    public boolean notAcceptable() {
-        return isStatus(Response.Status.NOT_ACCEPTABLE);
-    }
-
-    @Override
-    public boolean unsupportedMediaType() {
-        return isStatus(Response.Status.UNSUPPORTED_MEDIA_TYPE);
     }
 
     @Override
     public MediaType mediaType() {
         MultivaluedMap<String, Object> headers = mockResponse.getOutputHeaders();
         return (MediaType) headers.getFirst("Content-Type");
-    }
-
-    @Override
-    public String contentType() {
-        return mediaType().toString();
     }
 
 }
