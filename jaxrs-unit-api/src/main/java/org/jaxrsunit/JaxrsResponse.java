@@ -21,13 +21,20 @@ public interface JaxrsResponse {
 
     String content();
 
-    boolean ok();
-
-    boolean created();
-
-    boolean notAcceptable();
 
     MediaType mediaType();
 
     String contentType();
+
+    // 200
+    boolean ok();
+
+    // 201
+    boolean created();
+
+    // 406
+    boolean notAcceptable();
+
+    // 415
+    boolean unsupportedMediaType();
 }

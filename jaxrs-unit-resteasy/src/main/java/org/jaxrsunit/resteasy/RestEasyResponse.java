@@ -55,6 +55,11 @@ public class RestEasyResponse implements JaxrsResponse {
     }
 
     @Override
+    public boolean unsupportedMediaType() {
+        return isStatus(Response.Status.UNSUPPORTED_MEDIA_TYPE);
+    }
+
+    @Override
     public MediaType mediaType() {
         MultivaluedMap<String, Object> headers = mockResponse.getOutputHeaders();
         return (MediaType) headers.getFirst("Content-Type");

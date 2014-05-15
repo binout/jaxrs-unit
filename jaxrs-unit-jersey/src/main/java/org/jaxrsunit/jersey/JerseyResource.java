@@ -44,6 +44,11 @@ public class JerseyResource implements JaxrsResource {
     }
 
     @Override
+    public JaxrsResponse post(String mediaType, String body) {
+        return new JerseyResponse(webResource.type(mediaType).post(ClientResponse.class, body));
+    }
+
+    @Override
     public JaxrsResponse put(String body) {
         return new JerseyResponse(webResource.put(ClientResponse.class, body));
     }

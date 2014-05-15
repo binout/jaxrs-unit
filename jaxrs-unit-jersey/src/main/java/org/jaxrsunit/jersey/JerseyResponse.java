@@ -54,6 +54,11 @@ public class JerseyResponse implements JaxrsResponse {
     }
 
     @Override
+    public boolean unsupportedMediaType() {
+        return isStatus(Response.Status.UNSUPPORTED_MEDIA_TYPE);
+    }
+
+    @Override
     public MediaType mediaType() {
         return clientResponse.getType();
     }

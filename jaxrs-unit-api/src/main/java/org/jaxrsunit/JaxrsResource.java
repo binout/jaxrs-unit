@@ -19,11 +19,14 @@ public interface JaxrsResource {
 
     JaxrsResponse get();
 
+    JaxrsResponse get(String mediaType);
+
     JaxrsResponse post(String body);
+
+    JaxrsResponse post(String mediaType, String body);
 
     JaxrsResponse delete();
 
-    JaxrsResponse get(String mediaType);
-
     JaxrsResponse put(String body);
+
 }

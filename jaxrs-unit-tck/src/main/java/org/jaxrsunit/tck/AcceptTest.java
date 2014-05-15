@@ -22,21 +22,27 @@ import org.jaxrsunit.JaxrsUnit;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AcceptTest {
 
+    private JaxrsResource resource;
+
     @Path("/hello")
     public static class JsonResource {
         @GET
         @Produces(MediaType.APPLICATION_JSON)
-        public String hello() {
+        public String get() {
             return "{\"message\":\"hello\"}";
+        }
+
+        @POST
+        @Consumes(MediaType.APPLICATION_JSON)
+        public String post(String json) {
+            return "ok";
         }
     }
 
@@ -45,12 +51,11 @@ public class AcceptTest {
     @Before
     public void init() {
         server = JaxrsUnit.newServer(JsonResource.class);
+        resource = server.resource("/hello");
     }
 
     @Test
-    public void should_not_return_hello_because_content_negociation_failed() {
-        JaxrsResource resource = server.resource("/hello");
-
+    public void should_not_return_hello_because_content_negotiation_failed() {
         JaxrsResponse response = resource.get(MediaType.APPLICATION_XML);
 
         assertThat(response.ok()).isFalse();
@@ -59,13 +64,26 @@ public class AcceptTest {
 
     @Test
     public void should_return_hello_in_json() {
-        JaxrsResource resource = server.resource("/hello");
-
         JaxrsResponse response = resource.get(MediaType.APPLICATION_JSON);
 
         assertThat(response.ok()).isTrue();
         assertThat(response.contentType()).isEqualTo(MediaType.APPLICATION_JSON);
         assertThat(response.mediaType()).isEqualTo(MediaType.APPLICATION_JSON_TYPE);
         assertThat(response.content()).isEqualTo("{\"message\":\"hello\"}");
+    }
+
+    @Test
+    public void should_not_accept_hello_because_content_negotiation_failed() {
+        JaxrsResponse response = resource.post(MediaType.APPLICATION_XML, "<message>hello</message");
+
+        assertThat(response.ok()).isFalse();
+        assertThat(response.unsupportedMediaType()).isTrue();
+    }
+
+    @Test
+    public void should_accept_hello_because_content_negociation_failed() {
+        JaxrsResponse response = resource.post(MediaType.APPLICATION_JSON, "{\"message\":\"hello\"}");
+
+        assertThat(response.ok()).isTrue();
     }
 }
