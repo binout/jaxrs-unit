@@ -15,19 +15,28 @@
  */
 package org.jaxrsunit;
 
+import javax.ws.rs.core.MediaType;
+
 public interface JaxrsResource {
 
     JaxrsResponse get();
 
     JaxrsResponse get(String mediaType);
 
+    JaxrsResponse get(MediaType mediaType);
+
     JaxrsResponse post(String body);
 
     JaxrsResponse post(String mediaType, String body);
+
+    JaxrsResponse post(MediaType mediaType, String body);
 
     JaxrsResponse put(String body);
 
     JaxrsResponse put(String mediaType, String body);
 
+    JaxrsResponse put(MediaType mediaType, String body);
+
     JaxrsResponse delete();
+
 }

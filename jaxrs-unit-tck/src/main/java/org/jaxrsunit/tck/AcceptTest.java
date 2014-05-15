@@ -79,6 +79,16 @@ public class AcceptTest {
     }
 
     @Test
+    public void should_return_hello_in_json_with_media_type() {
+        JaxrsResponse response = resource.get(MediaType.APPLICATION_JSON_TYPE);
+
+        assertThat(response.ok()).isTrue();
+        assertThat(response.contentType()).isEqualTo(MediaType.APPLICATION_JSON);
+        assertThat(response.mediaType()).isEqualTo(MediaType.APPLICATION_JSON_TYPE);
+        assertThat(response.content()).isEqualTo("{\"message\":\"hello\"}");
+    }
+
+    @Test
     public void post_should_not_accept_hello_because_content_negotiation_failed() {
         JaxrsResponse response = resource.post(MediaType.APPLICATION_XML, "<message>hello</message");
 
@@ -87,8 +97,15 @@ public class AcceptTest {
     }
 
     @Test
-    public void post_should_accept_hello_because_content_negociation_failed() {
+    public void post_should_accept_hello_because_content_negotiation_success() {
         JaxrsResponse response = resource.post(MediaType.APPLICATION_JSON, "{\"message\":\"hello\"}");
+
+        assertThat(response.ok()).isTrue();
+    }
+
+    @Test
+    public void post_should_accept_hello_because_content_negotiation_success_with_media_type() {
+        JaxrsResponse response = resource.post(MediaType.APPLICATION_JSON_TYPE, "{\"message\":\"hello\"}");
 
         assertThat(response.ok()).isTrue();
     }
@@ -102,8 +119,15 @@ public class AcceptTest {
     }
 
     @Test
-    public void put_should_accept_hello_because_content_negociation_failed() {
+    public void put_should_accept_hello_because_content_negotiation_success() {
         JaxrsResponse response = resource.put(MediaType.APPLICATION_JSON, "{\"message\":\"hello\"}");
+
+        assertThat(response.ok()).isTrue();
+    }
+
+    @Test
+    public void put_should_accept_hello_because_content_negotiation_success_with_media_type() {
+        JaxrsResponse response = resource.put(MediaType.APPLICATION_JSON_TYPE, "{\"message\":\"hello\"}");
 
         assertThat(response.ok()).isTrue();
     }

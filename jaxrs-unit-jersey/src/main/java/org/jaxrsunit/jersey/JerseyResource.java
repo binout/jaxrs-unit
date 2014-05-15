@@ -20,6 +20,8 @@ import com.sun.jersey.api.client.WebResource;
 import org.jaxrsunit.JaxrsResource;
 import org.jaxrsunit.JaxrsResponse;
 
+import javax.ws.rs.core.MediaType;
+
 public class JerseyResource implements JaxrsResource {
 
     private final WebResource webResource;
@@ -31,6 +33,11 @@ public class JerseyResource implements JaxrsResource {
     @Override
     public JaxrsResponse get() {
         return new JerseyResponse(webResource.get(ClientResponse.class));
+    }
+
+    @Override
+    public JaxrsResponse get(MediaType mediaType) {
+        return new JerseyResponse(webResource.accept(mediaType).get(ClientResponse.class));
     }
 
     @Override
@@ -49,12 +56,22 @@ public class JerseyResource implements JaxrsResource {
     }
 
     @Override
+    public JaxrsResponse post(MediaType mediaType, String body) {
+        return new JerseyResponse(webResource.type(mediaType).post(ClientResponse.class, body));
+    }
+
+    @Override
     public JaxrsResponse put(String body) {
         return new JerseyResponse(webResource.put(ClientResponse.class, body));
     }
 
     @Override
     public JaxrsResponse put(String mediaType, String body) {
+        return new JerseyResponse(webResource.type(mediaType).put(ClientResponse.class, body));
+    }
+
+    @Override
+    public JaxrsResponse put(MediaType mediaType, String body) {
         return new JerseyResponse(webResource.type(mediaType).put(ClientResponse.class, body));
     }
 

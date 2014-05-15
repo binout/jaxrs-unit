@@ -46,6 +46,11 @@ public class RestEasyResource implements JaxrsResource {
     }
 
     @Override
+    public JaxrsResponse get(MediaType mediaType) {
+        return get(mediaType.toString());
+    }
+
+    @Override
     public JaxrsResponse get(String mediaType) {
         try {
             MockHttpRequest request = MockHttpRequest.get(uri);
@@ -59,6 +64,11 @@ public class RestEasyResource implements JaxrsResource {
     @Override
     public JaxrsResponse post(String body) {
         return post(MediaType.MEDIA_TYPE_WILDCARD, body);
+    }
+
+    @Override
+    public JaxrsResponse post(MediaType mediaType, String body) {
+        return post(mediaType.toString(), body);
     }
 
     @Override
@@ -76,6 +86,11 @@ public class RestEasyResource implements JaxrsResource {
     @Override
     public JaxrsResponse put(String body) {
         return put(MediaType.MEDIA_TYPE_WILDCARD, body);
+    }
+
+    @Override
+    public JaxrsResponse put(MediaType mediaType, String body) {
+        return put(mediaType.toString(), body);
     }
 
     @Override
