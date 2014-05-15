@@ -13,30 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jaxrsunit;
+package org.jaxrsunit.resteasy;
 
-import javax.ws.rs.core.MediaType;
+import org.jaxrsunit.tck.HeaderTest;
 
-public interface JaxrsResponse {
-
-    String content();
-
-    String contentLanguage();
-
-    MediaType mediaType();
-
-    String contentType();
-
-    // 200
-    boolean ok();
-
-    // 201
-    boolean created();
-
-    // 406
-    boolean notAcceptable();
-
-    // 415
-    boolean unsupportedMediaType();
-
+public class HeaderRestEasyTest extends HeaderTest {
 }

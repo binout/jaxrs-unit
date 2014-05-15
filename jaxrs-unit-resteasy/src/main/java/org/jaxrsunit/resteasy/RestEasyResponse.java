@@ -36,6 +36,12 @@ public class RestEasyResponse extends AbstractJaxrsResponse {
     }
 
     @Override
+    public String contentLanguage() {
+        MultivaluedMap<String, Object> headers = mockResponse.getOutputHeaders();
+        return (String) headers.getFirst("Content-Language");
+    }
+
+    @Override
     protected boolean isStatus(Response.Status status) {
         return status.getStatusCode() == mockResponse.getStatus();
     }

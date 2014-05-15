@@ -35,6 +35,11 @@ public class JerseyResponse extends AbstractJaxrsResponse {
     }
 
     @Override
+    public String contentLanguage() {
+        return clientResponse.getLanguage();
+    }
+
+    @Override
     protected boolean isStatus(Response.Status status) {
         return clientResponse.getStatus() == status.getStatusCode();
     }
