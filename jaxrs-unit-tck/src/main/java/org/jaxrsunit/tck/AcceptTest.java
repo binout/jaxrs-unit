@@ -44,6 +44,12 @@ public class AcceptTest {
         public String post(String json) {
             return "ok";
         }
+
+        @PUT
+        @Consumes(MediaType.APPLICATION_JSON)
+        public String put(String json) {
+            return "ok";
+        }
     }
 
     private JaxrsServer server;
@@ -73,7 +79,7 @@ public class AcceptTest {
     }
 
     @Test
-    public void should_not_accept_hello_because_content_negotiation_failed() {
+    public void post_should_not_accept_hello_because_content_negotiation_failed() {
         JaxrsResponse response = resource.post(MediaType.APPLICATION_XML, "<message>hello</message");
 
         assertThat(response.ok()).isFalse();
@@ -81,8 +87,23 @@ public class AcceptTest {
     }
 
     @Test
-    public void should_accept_hello_because_content_negociation_failed() {
+    public void post_should_accept_hello_because_content_negociation_failed() {
         JaxrsResponse response = resource.post(MediaType.APPLICATION_JSON, "{\"message\":\"hello\"}");
+
+        assertThat(response.ok()).isTrue();
+    }
+
+    @Test
+    public void put_should_not_accept_hello_because_content_negotiation_failed() {
+        JaxrsResponse response = resource.put(MediaType.APPLICATION_XML, "<message>hello</message");
+
+        assertThat(response.ok()).isFalse();
+        assertThat(response.unsupportedMediaType()).isTrue();
+    }
+
+    @Test
+    public void put_should_accept_hello_because_content_negociation_failed() {
+        JaxrsResponse response = resource.put(MediaType.APPLICATION_JSON, "{\"message\":\"hello\"}");
 
         assertThat(response.ok()).isTrue();
     }

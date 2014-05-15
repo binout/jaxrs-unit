@@ -75,8 +75,14 @@ public class RestEasyResource implements JaxrsResource {
 
     @Override
     public JaxrsResponse put(String body) {
+        return put(MediaType.MEDIA_TYPE_WILDCARD, body);
+    }
+
+    @Override
+    public JaxrsResponse put(String mediaType, String body) {
         try {
             MockHttpRequest request = MockHttpRequest.put(uri);
+            request.contentType(mediaType);
             request.content(body.getBytes());
             return executeRequest(request);
         } catch (URISyntaxException e) {

@@ -25,8 +25,9 @@ public interface JaxrsResource {
 
     JaxrsResponse post(String mediaType, String body);
 
-    JaxrsResponse delete();
-
     JaxrsResponse put(String body);
 
+    JaxrsResponse put(String mediaType, String body);
+
+    JaxrsResponse delete();
 }
