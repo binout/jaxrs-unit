@@ -18,6 +18,8 @@ package org.jaxrsunit.resteasy;
 import org.jaxrsunit.JaxrsResponse;
 import org.jboss.resteasy.mock.MockHttpResponse;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 public class RestEasyResponse implements JaxrsResponse {
@@ -46,4 +48,21 @@ public class RestEasyResponse implements JaxrsResponse {
     public boolean created() {
         return isStatus(Response.Status.CREATED);
     }
+
+    @Override
+    public boolean notAcceptable() {
+        return isStatus(Response.Status.NOT_ACCEPTABLE);
+    }
+
+    @Override
+    public MediaType mediaType() {
+        MultivaluedMap<String, Object> headers = mockResponse.getOutputHeaders();
+        return (MediaType) headers.getFirst("Content-Type");
+    }
+
+    @Override
+    public String contentType() {
+        return mediaType().toString();
+    }
+
 }

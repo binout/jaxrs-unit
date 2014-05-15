@@ -15,6 +15,8 @@
  */
 package org.jaxrsunit;
 
+import javax.ws.rs.core.MediaType;
+
 public interface JaxrsResponse {
 
     String content();
@@ -22,4 +24,10 @@ public interface JaxrsResponse {
     boolean ok();
 
     boolean created();
+
+    boolean notAcceptable();
+
+    MediaType mediaType();
+
+    String contentType();
 }

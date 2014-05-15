@@ -18,6 +18,7 @@ package org.jaxrsunit.jersey;
 import com.sun.jersey.api.client.ClientResponse;
 import org.jaxrsunit.JaxrsResponse;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class JerseyResponse implements JaxrsResponse {
@@ -45,5 +46,20 @@ public class JerseyResponse implements JaxrsResponse {
     @Override
     public boolean created() {
         return isStatus(Response.Status.CREATED);
+    }
+
+    @Override
+    public boolean notAcceptable() {
+        return isStatus(Response.Status.NOT_ACCEPTABLE);
+    }
+
+    @Override
+    public MediaType mediaType() {
+        return clientResponse.getType();
+    }
+
+    @Override
+    public String contentType() {
+        return mediaType().toString();
     }
 }

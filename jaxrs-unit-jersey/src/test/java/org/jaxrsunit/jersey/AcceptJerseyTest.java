@@ -13,15 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jaxrsunit;
+package org.jaxrsunit.jersey;
 
-public interface JaxrsResource {
+import org.jaxrsunit.tck.AcceptTest;
 
-    JaxrsResponse get();
-
-    JaxrsResponse post(String body);
-
-    JaxrsResponse delete();
-
-    JaxrsResponse get(String mediaType);
+public class AcceptJerseyTest extends AcceptTest {
 }

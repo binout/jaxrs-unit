@@ -21,6 +21,7 @@ import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.mock.MockHttpRequest;
 import org.jboss.resteasy.mock.MockHttpResponse;
 
+import javax.ws.rs.core.MediaType;
 import java.net.URISyntaxException;
 
 public class RestEasyResource implements JaxrsResource {
@@ -41,8 +42,15 @@ public class RestEasyResource implements JaxrsResource {
 
     @Override
     public JaxrsResponse get() {
+        return get(MediaType.MEDIA_TYPE_WILDCARD);
+    }
+
+    @Override
+    public JaxrsResponse get(String mediaType) {
         try {
-            return executeRequest(MockHttpRequest.get(uri));
+            MockHttpRequest request = MockHttpRequest.get(uri);
+            request.accept(mediaType);
+            return executeRequest(request);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -67,4 +75,5 @@ public class RestEasyResource implements JaxrsResource {
             throw new RuntimeException(e);
         }
     }
+
 }
