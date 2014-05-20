@@ -6,21 +6,25 @@ The goal is to write unit tests without a real JavaEE server.
 But tests use real JAX-RS implementation (Jersey or RestEasy) with in-memory containers. 
 
 JaxRS Unit provides an API to encapsulate the specific im-memory containers.
-Remo
-# Environment
+
+## Build status
+
+[![Build Status](https://buildhive.cloudbees.com/job/binout/job/jaxrs-unit/badge/icon)](https://buildhive.cloudbees.com/job/binout/job/jaxrs-unit)
+ 
+## Environment
 
 - `java-1.7`
 
-# Build
+## Build
 
 ```bash
 mvn clean verify
 ```
 
-# Usage
+## Usage
 
 
-## Maven
+### Maven
 
 Release versions are deployed on my repository :
 
@@ -64,7 +68,7 @@ You have to choose an implementation :
 </dependency>
 ```
 
-## Hello World
+### Hello World
 
 Considering a JAX-RS resource :
 ```java
@@ -101,6 +105,7 @@ public class HelloTest {
 
 ## TODO
 
+- resource scanning
 - json support
 - resource injection
 - jaxrs 2
