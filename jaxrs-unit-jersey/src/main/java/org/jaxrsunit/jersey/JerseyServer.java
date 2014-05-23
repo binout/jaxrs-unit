@@ -30,6 +30,7 @@ import javax.ws.rs.core.UriBuilder;
 
 public class JerseyServer implements JaxrsServer {
 
+    private String baseUrl;
     private DefaultResourceConfig resourceConfig;
     private Client client;
     private TestContainer testContainer;
@@ -40,12 +41,14 @@ public class JerseyServer implements JaxrsServer {
 
     @Override
     public void configure(JaxrsServerConfig config) {
+        baseUrl = config.getBaseUrl();
         resourceConfig.getClasses().addAll(config.getResources());
         initServer();
     }
 
     @Override
     public JaxrsResource resource(String uri) {
+        uri = uri.replaceAll(baseUrl, "");
         return new JerseyResource(client.resource(uri));
     }
 

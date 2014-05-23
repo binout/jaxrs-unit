@@ -21,17 +21,31 @@ import java.util.LinkedList;
 
 public class JaxrsServerConfig {
 
+    private final String baseUrl;
     private Collection<Class<?>> resourceClasses;
 
     public JaxrsServerConfig() {
-        resourceClasses = new LinkedList<>();
+        this("");
+    }
+
+    public JaxrsServerConfig(String baseUrl) {
+        this.baseUrl = baseUrl;
+        this.resourceClasses = new LinkedList<>();
     }
 
     public void addResources(Class<?>... classes) {
-        resourceClasses.addAll(Arrays.asList(classes));
+        addResources(Arrays.asList(classes));
+    }
+
+    public void addResources(Collection<Class<?>> classes) {
+        resourceClasses.addAll(classes);
     }
 
     public Collection<Class<?>> getResources() {
         return resourceClasses;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
     }
 }

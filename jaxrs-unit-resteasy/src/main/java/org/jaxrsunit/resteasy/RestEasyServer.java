@@ -24,6 +24,7 @@ import org.jboss.resteasy.plugins.server.resourcefactory.POJOResourceFactory;
 
 public class RestEasyServer implements JaxrsServer {
 
+    private String baseUrl;
     private Dispatcher dispatcher;
 
     public RestEasyServer() {
@@ -32,6 +33,7 @@ public class RestEasyServer implements JaxrsServer {
 
     @Override
     public void configure(JaxrsServerConfig config) {
+        baseUrl = config.getBaseUrl();
         for (Class<?> resourceClass : config.getResources()) {
             dispatcher.getRegistry().addResourceFactory(new POJOResourceFactory(resourceClass));
         }
@@ -39,6 +41,7 @@ public class RestEasyServer implements JaxrsServer {
 
     @Override
     public JaxrsResource resource(String uri) {
-        return new RestEasyResource(dispatcher, uri);
+        uri = uri.replaceAll(baseUrl, "");
+        return new RestEasyResource(dispatcher,  uri);
     }
 }

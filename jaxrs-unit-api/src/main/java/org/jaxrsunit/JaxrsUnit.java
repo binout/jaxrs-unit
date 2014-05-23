@@ -15,22 +15,45 @@
  */
 package org.jaxrsunit;
 
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
 public class JaxrsUnit {
 
     public static JaxrsServer newServer(Class<?>... resources) {
+        JaxrsServer jaxrsServer = buildServer();
+        JaxrsServerConfig config = new JaxrsServerConfig();
+        config.addResources(resources);
+        jaxrsServer.configure(config);
+        return jaxrsServer;
+    }
+
+    private static JaxrsServer buildServer() {
         ServiceLoader<JaxrsServer> serviceLoader = ServiceLoader.load(JaxrsServer.class);
         Iterator<JaxrsServer> iterator = serviceLoader.iterator();
         if (iterator.hasNext()) {
-            JaxrsServer jaxrsServer = iterator.next();
-            JaxrsServerConfig config = new JaxrsServerConfig();
-            config.addResources(resources);
-            jaxrsServer.configure(config);
-            return jaxrsServer;
+            return iterator.next();
         } else {
             throw new RuntimeException("No implemention found for JaxrsServer");
         }
+    }
+
+    public static JaxrsServer newServer(Application application) {
+        String baseUrl = getApplicationPath(application);
+        JaxrsServer jaxrsServer = buildServer();
+        JaxrsServerConfig config = new JaxrsServerConfig(baseUrl);
+        config.addResources(application.getClasses());
+        jaxrsServer.configure(config);
+        return jaxrsServer;
+    }
+
+    private static String getApplicationPath(Application application) {
+        ApplicationPath applicationPath = application.getClass().getAnnotation(ApplicationPath.class);
+        if (applicationPath == null) {
+            throw new RuntimeException(application.getClass() + " must have an ApplicationPath annotation");
+        }
+        return "/" + applicationPath.value();
     }
 }
