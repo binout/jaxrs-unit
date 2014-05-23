@@ -61,7 +61,7 @@ public class StuffApplicationTest {
     }
 
     @Test
-    public void should_return_hello() {
+    public void should_return_stuff() {
         JaxrsResource resource = server.resource("/rest/stuff");
 
         JaxrsResponse response = resource.get();
