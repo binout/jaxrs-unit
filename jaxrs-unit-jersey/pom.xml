@@ -26,6 +26,11 @@
             <artifactId>jersey-test-framework-inmemory</artifactId>
             <version>${lib.jersey.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>${lib.jersey.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.jaxrs-unit</groupId>

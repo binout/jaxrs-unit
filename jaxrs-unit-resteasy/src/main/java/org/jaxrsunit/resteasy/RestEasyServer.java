@@ -19,6 +19,7 @@ import org.jaxrsunit.JaxrsResource;
 import org.jaxrsunit.JaxrsServer;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.mock.MockDispatcherFactory;
+import org.jboss.resteasy.plugins.providers.jackson.ResteasyJacksonProvider;
 import org.jboss.resteasy.plugins.server.resourcefactory.POJOResourceFactory;
 
 public class RestEasyServer implements JaxrsServer {
@@ -28,6 +29,7 @@ public class RestEasyServer implements JaxrsServer {
 
     public RestEasyServer() {
         dispatcher = MockDispatcherFactory.createDispatcher();
+        dispatcher.getProviderFactory().registerProvider(ResteasyJacksonProvider.class);
     }
 
     @Override
