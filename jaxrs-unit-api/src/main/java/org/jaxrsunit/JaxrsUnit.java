@@ -23,12 +23,33 @@ import static org.jaxrsunit.JaxrsServer.JaxrsServerConfig;
 
 public class JaxrsUnit {
 
+    /**
+     * Build a new JaxrsServer from a list of resources
+     * @param resources a list of JAX-RS resources
+     * @return an instance of JaxrsServer
+     */
     public static JaxrsServer newServer(Class<?>... resources) {
         return configureServer(JaxrsServerConfig.empty().withResources(resources));
     }
 
+    /**
+     * Build a new JaxrsServer from an application.
+     * The path of application will be used as base URL..
+     * The resources are discovered by the getClasses method.
+     * @param application a JAX-RS application
+     * @return an instance of JaxrsServer
+     */
     public static JaxrsServer newServer(Application application) {
         return configureServer(JaxrsServerConfig.fromApplication(application));
+    }
+
+    /**
+     * Build a new JaxrsServer from a list of resources as result of a scan of a package
+     * @param baseResourcePackage the base package for JAX-RS resources
+     * @return an instance of JaxrsServer
+     */
+    public static JaxrsServer newServer(String baseResourcePackage) {
+        return configureServer(JaxrsServerConfig.empty().withScanResources(baseResourcePackage));
     }
 
     private static JaxrsServer configureServer(JaxrsServerConfig config) {

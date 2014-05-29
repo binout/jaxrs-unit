@@ -15,8 +15,13 @@
  */
 package org.jaxrsunit;
 
+import eu.infomas.annotation.AnnotationDetector;
+
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.Application;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -55,6 +60,30 @@ public interface JaxrsServer {
 
         public JaxrsServerConfig withResources(Class<?>... classes) {
             resourceClasses.addAll(Arrays.asList(classes));
+            return this;
+        }
+
+        public JaxrsServerConfig withScanResources(String basePack) {
+            AnnotationDetector.TypeReporter reporter = new AnnotationDetector.TypeReporter() {
+                @Override
+                public void reportTypeAnnotation(Class<? extends Annotation> aClass, String s) {
+                    try {
+                        resourceClasses.add(Class.forName(s));
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                @Override
+                public Class<? extends Annotation>[] annotations() {
+                    return new Class[]{Path.class};
+                }
+            };
+            final AnnotationDetector cf = new AnnotationDetector(reporter);
+            try {
+                cf.detect(basePack);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return this;
         }
 

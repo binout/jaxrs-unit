@@ -105,7 +105,6 @@ public class HelloTest {
 
 ## TODO
 
-- resource scanning
 - resource injection
 - jaxrs 2
 

@@ -74,7 +74,7 @@ public class JsonTest {
     }
 
     @Test
-    public void should_return_hello() {
+    public void should_return_json() {
         JaxrsResource resource = server.resource("/john.doe");
 
         JaxrsResponse response = resource.get(MediaType.APPLICATION_JSON_TYPE);

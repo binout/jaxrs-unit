@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.jaxrs-unit</groupId>
         <artifactId>jaxrs-unit</artifactId>
@@ -12,10 +11,19 @@
 
     <artifactId>jaxrs-unit-api</artifactId>
 
+    <properties>
+        <lib.annotation-detector.version>3.0.4</lib.annotation-detector.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>eu.infomas</groupId>
+            <artifactId>annotation-detector</artifactId>
+            <version>${lib.annotation-detector.version}</version>
         </dependency>
     </dependencies>
     
