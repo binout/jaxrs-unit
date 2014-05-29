@@ -17,7 +17,6 @@ package org.jaxrsunit.resteasy;
 
 import org.jaxrsunit.JaxrsResource;
 import org.jaxrsunit.JaxrsServer;
-import org.jaxrsunit.JaxrsServerConfig;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.mock.MockDispatcherFactory;
 import org.jboss.resteasy.plugins.server.resourcefactory.POJOResourceFactory;

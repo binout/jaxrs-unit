@@ -15,9 +15,55 @@
  */
 package org.jaxrsunit;
 
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+
 public interface JaxrsServer {
 
     void configure(JaxrsServerConfig config);
 
     JaxrsResource resource(String uri);
+
+    class JaxrsServerConfig {
+
+        private String baseUrl;
+        private Collection<Class<?>> resourceClasses;
+
+        private JaxrsServerConfig(String baseUrl, Collection<Class<?>> resourceClasses) {
+            this.baseUrl = baseUrl;
+            this.resourceClasses = resourceClasses;
+        }
+
+        public static JaxrsServerConfig empty() {
+            return  new JaxrsServerConfig("", new LinkedList<Class<?>>());
+        }
+
+        public static JaxrsServerConfig fromApplication(Application application) {
+            return  new JaxrsServerConfig(getApplicationPath(application), application.getClasses());
+        }
+
+        private static String getApplicationPath(Application application) {
+            ApplicationPath applicationPath = application.getClass().getAnnotation(ApplicationPath.class);
+            if (applicationPath == null) {
+                throw new RuntimeException(application.getClass() + " must have an ApplicationPath annotation");
+            }
+            return "/" + applicationPath.value();
+        }
+
+        public JaxrsServerConfig withResources(Class<?>... classes) {
+            resourceClasses.addAll(Arrays.asList(classes));
+            return this;
+        }
+
+        public Collection<Class<?>> getResources() {
+            return resourceClasses;
+        }
+
+        public String getBaseUrl() {
+            return baseUrl;
+        }
+    }
 }

@@ -24,7 +24,6 @@ import com.sun.jersey.test.framework.spi.container.TestContainerFactory;
 import com.sun.jersey.test.framework.spi.container.inmemory.InMemoryTestContainerFactory;
 import org.jaxrsunit.JaxrsResource;
 import org.jaxrsunit.JaxrsServer;
-import org.jaxrsunit.JaxrsServerConfig;
 
 import javax.ws.rs.core.UriBuilder;
 
