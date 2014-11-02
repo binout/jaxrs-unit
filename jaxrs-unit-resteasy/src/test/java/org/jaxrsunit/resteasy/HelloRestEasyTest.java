@@ -15,7 +15,7 @@
  */
 package org.jaxrsunit.resteasy;
 
-import org.jaxrsunit.tck.HelloTest;
+import io.github.binout.jaxrsunit.tck.HelloTest;
 
 public class HelloRestEasyTest extends HelloTest {
 }

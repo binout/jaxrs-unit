@@ -1,0 +1,111 @@
+= jaxrs-unit
+:compat-mode:
+
+A library for unit testing of JAX-RS application.
+
+== Description
+The goal is to write unit tests without a real JavaEE server.
+But tests use real JAX-RS implementation (Jersey or RestEasy) with in-memory containers.
+
+JaxRS Unit provides an API to encapsulate the specific im-memory containers.
+
+== Build status
+
+image:https://buildhive.cloudbees.com/job/binout/job/jaxrs-unit/badge/icon["Build Status", link="https://buildhive.cloudbees.com/job/binout/job/jaxrs-unit/"]
+
+== Environment
+
+* +java-1.7+
+
+== Build
+
+[source,bash]
+----
+mvn clean verify
+----
+
+== Usage
+
+=== Maven
+
+You have to add api dependency :
+
+[source, xml]
+----
+<dependency>
+    <groupId>org.jaxrs-unit</groupId>
+    <artifactId>jaxrs-unit-api</artifactId>
+    <version>${version}</version>
+    <scope>test</scope>
+</dependency>
+----
+
+You have to choose an implementation :
+
+* RestEasy
+
+[source, xml]
+----
+<dependency>
+    <groupId>org.jaxrs-unit</groupId>
+    <artifactId>jaxrs-unit-resteasy</artifactId>
+    <version>${version}</version>
+    <scope>test</scope>
+</dependency>
+----
+
+* Jersey
+
+[source, xml]
+----
+<dependency>
+    <groupId>org.jaxrs-unit</groupId>
+    <artifactId>jaxrs-unit-jersey</artifactId>
+    <version>${version}</version>
+    <scope>test</scope>
+</dependency>
+----
+
+=== Hello World
+
+Considering a JAX-RS resource :
+
+[source, java]
+----
+@Path("/hello")
+public class HelloResource {
+    @GET
+    public String hello() {
+        return "hello";
+    }
+}
+----
+
+You can write a unit test like this :
+
+[source, java]
+----
+public class HelloTest {
+    private JaxrsServer server;
+
+    @Before
+    public void init() {
+        server = JaxrsUnit.newServer(HelloResource.class);
+    }
+
+    @Test
+    public void should_return_hello() {
+        JaxrsResource resource = server.resource("/hello");
+
+        JaxrsResponse response = resource.get();
+
+        assertThat(response.ok()).isTrue();
+        assertThat(response.content()).isEqualTo("hello");
+    }
+}
+----
+
+== TODO
+
+* resource injection
+* jaxrs 2

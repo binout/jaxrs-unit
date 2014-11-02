@@ -15,7 +15,7 @@
  */
 package org.jaxrsunit.resteasy;
 
-import org.jaxrsunit.tck.HeaderTest;
+import io.github.binout.jaxrsunit.tck.HeaderTest;
 
 public class HeaderRestEasyTest extends HeaderTest {
 }

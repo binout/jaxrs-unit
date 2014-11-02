@@ -15,7 +15,7 @@
  */
 package org.jaxrsunit.resteasy;
 
-import org.jaxrsunit.tck.JsonTest;
+import io.github.binout.jaxrsunit.tck.JsonTest;
 
 public class JsonRestEasyTest extends JsonTest {
 }

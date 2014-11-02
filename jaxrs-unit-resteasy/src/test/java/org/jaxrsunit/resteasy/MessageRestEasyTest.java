@@ -15,7 +15,7 @@
  */
 package org.jaxrsunit.resteasy;
 
-import org.jaxrsunit.tck.MessageTest;
+import io.github.binout.jaxrsunit.tck.MessageTest;
 
 public class MessageRestEasyTest extends MessageTest {
 }

@@ -13,9 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jaxrsunit.resteasy;
+package io.github.binout.jaxrsunit;
 
-import io.github.binout.jaxrsunit.tck.AcceptTest;
+import javax.ws.rs.core.MediaType;
 
-public class AcceptRestEasyTest extends AcceptTest {
+public interface JaxrsResponse {
+
+    String content();
+
+    String contentLanguage();
+
+    MediaType mediaType();
+
+    String contentType();
+
+    // 200
+    boolean ok();
+
+    // 201
+    boolean created();
+
+    // 406
+    boolean notAcceptable();
+
+    // 415
+    boolean unsupportedMediaType();
+
 }

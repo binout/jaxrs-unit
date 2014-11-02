@@ -15,7 +15,7 @@
  */
 package org.jaxrsunit.resteasy;
 
-import org.jaxrsunit.tck.scan.ScanTest;
+import io.github.binout.jaxrsunit.tck.scan.ScanTest;
 
 public class ScanRestEasyTest extends ScanTest {
 }

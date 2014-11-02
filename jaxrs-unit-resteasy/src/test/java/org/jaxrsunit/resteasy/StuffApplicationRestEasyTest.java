@@ -15,7 +15,7 @@
  */
 package org.jaxrsunit.resteasy;
 
-import org.jaxrsunit.tck.StuffApplicationTest;
+import io.github.binout.jaxrsunit.tck.StuffApplicationTest;
 
 public class StuffApplicationRestEasyTest extends StuffApplicationTest {
 }

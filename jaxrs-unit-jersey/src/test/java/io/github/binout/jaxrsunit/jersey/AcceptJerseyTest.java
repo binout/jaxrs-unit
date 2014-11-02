@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jaxrsunit.resteasy;
+package io.github.binout.jaxrsunit.jersey;
 
 import io.github.binout.jaxrsunit.tck.AcceptTest;
 
-public class AcceptRestEasyTest extends AcceptTest {
+public class AcceptJerseyTest extends AcceptTest {
 }

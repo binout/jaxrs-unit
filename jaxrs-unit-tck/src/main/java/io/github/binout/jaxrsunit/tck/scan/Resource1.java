@@ -13,9 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jaxrsunit.resteasy;
+package io.github.binout.jaxrsunit.tck.scan;
 
-import io.github.binout.jaxrsunit.tck.AcceptTest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
-public class AcceptRestEasyTest extends AcceptTest {
+@Path("r1")
+public class Resource1 {
+
+    @GET
+    public String get() {
+        return "r1";
+    }
 }
