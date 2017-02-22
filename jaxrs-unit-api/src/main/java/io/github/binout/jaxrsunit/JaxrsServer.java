@@ -20,11 +20,14 @@ import eu.infomas.annotation.AnnotationDetector;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 public interface JaxrsServer {
 
@@ -35,11 +38,11 @@ public interface JaxrsServer {
     class JaxrsServerConfig {
 
         private String baseUrl;
-        private Collection<Class<?>> resourceClasses;
+        private Collection<Class<?>> classes;
 
-        private JaxrsServerConfig(String baseUrl, Collection<Class<?>> resourceClasses) {
+        private JaxrsServerConfig(String baseUrl, Collection<Class<?>> classes) {
             this.baseUrl = baseUrl;
-            this.resourceClasses = resourceClasses;
+            this.classes = classes;
         }
 
         public static JaxrsServerConfig empty() {
@@ -59,7 +62,11 @@ public interface JaxrsServer {
         }
 
         public JaxrsServerConfig withResources(Class<?>... classes) {
-            resourceClasses.addAll(Arrays.asList(classes));
+            this.classes.addAll(Arrays.asList(classes));
+            return this;
+        }
+        public JaxrsServerConfig withProviders(Class<?>... classes) {
+            this.classes.addAll(Arrays.asList(classes));
             return this;
         }
 
@@ -68,14 +75,14 @@ public interface JaxrsServer {
                 @Override
                 public void reportTypeAnnotation(Class<? extends Annotation> aClass, String s) {
                     try {
-                        resourceClasses.add(Class.forName(s));
+                        classes.add(Class.forName(s));
                     } catch (ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
                 }
                 @Override
                 public Class<? extends Annotation>[] annotations() {
-                    return new Class[]{Path.class};
+                    return new Class[]{Path.class, Provider.class};
                 }
             };
             final AnnotationDetector cf = new AnnotationDetector(reporter);
@@ -88,7 +95,23 @@ public interface JaxrsServer {
         }
 
         public Collection<Class<?>> getResources() {
-            return resourceClasses;
+            List<Class<?>> resources = new ArrayList<>();
+            for (Class<?> classObject : classes) {
+                if (classObject.isAnnotationPresent(Path.class)) {
+                    resources.add(classObject);
+                }
+            }
+            return resources;
+        }
+
+        public Collection<Class<?>> getProviders() {
+            List<Class<?>> resources = new ArrayList<>();
+            for (Class<?> classObject : classes) {
+                if (classObject.isAnnotationPresent(Provider.class)) {
+                    resources.add(classObject);
+                }
+            }
+            return resources;
         }
 
         public String getBaseUrl() {
