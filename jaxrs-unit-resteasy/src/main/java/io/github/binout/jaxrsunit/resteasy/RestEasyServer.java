@@ -38,6 +38,9 @@ public class RestEasyServer implements JaxrsServer {
         for (Class<?> resourceClass : config.getResources()) {
             dispatcher.getRegistry().addResourceFactory(new POJOResourceFactory(resourceClass));
         }
+        for (Class<?> providerClass : config.getProviders()) {
+            dispatcher.getProviderFactory().registerProvider(providerClass);
+        }
     }
 
     @Override
