@@ -11,7 +11,7 @@ JaxRS Unit provides an API to encapsulate the specific im-memory containers.
 
 == Build status
 
-image:https://travis-ci.org/binout/jaxrs-unit?branch=master["Build Status", link="https://travis-ci.org/binout/jaxrs-unit"]
+image:https://travis-ci.org/binout/jaxrs-unit.svg?branch=master["Build Status", link="https://travis-ci.org/binout/jaxrs-unit"]
 
 == Environment
 
