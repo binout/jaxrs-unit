@@ -33,7 +33,7 @@ You have to add api dependency :
 [source, xml]
 ----
 <dependency>
-    <groupId>io.github.binout.jaxrs-unit</groupId>
+    <groupId>io.github.binout</groupId>
     <artifactId>jaxrs-unit-api</artifactId>
     <version>${version}</version>
     <scope>test</scope>
@@ -47,7 +47,7 @@ You have to choose an implementation :
 [source, xml]
 ----
 <dependency>
-    <groupId>io.github.binout.jaxrs-unit</groupId>
+    <groupId>io.github.binout</groupId>
     <artifactId>jaxrs-unit-resteasy</artifactId>
     <version>${version}</version>
     <scope>test</scope>
@@ -59,7 +59,7 @@ You have to choose an implementation :
 [source, xml]
 ----
 <dependency>
-    <groupId>io.github.binout.jaxrs-unit</groupId>
+    <groupId>io.github.binout</groupId>
     <artifactId>jaxrs-unit-jersey</artifactId>
     <version>${version}</version>
     <scope>test</scope>
