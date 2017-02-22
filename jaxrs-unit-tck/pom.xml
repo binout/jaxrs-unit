@@ -6,11 +6,7 @@
     <parent>
         <groupId>io.github.binout</groupId>
         <artifactId>jaxrs-unit</artifactId>
-<<<<<<< HEAD
-        <version>1.1.1-SNAPSHOT</version>
-=======
-        <version>1.2.0-SNAPSHOT</version>
->>>>>>> Expose status code returned, update version to next snapshot
+        <version>2.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>jaxrs-unit-tck</artifactId>
@@ -39,7 +35,7 @@
 
         <dependency>
             <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
+            <artifactId>javax.ws.rs-api</artifactId>
         </dependency>
 
     </dependencies>

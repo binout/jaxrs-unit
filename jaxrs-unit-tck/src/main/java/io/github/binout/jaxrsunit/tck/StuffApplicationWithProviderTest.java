@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Application;
@@ -37,13 +38,13 @@ public class StuffApplicationWithProviderTest {
     public static class StuffResource {
         @GET
         public String hello() {
-            throw new IllegalArgumentException("Resource says your argument was illegal");
+            throw new ClientErrorException(Response.Status.EXPECTATION_FAILED);
         }
     }
     @Provider
-    public static class IllegalArgumentExceptionMapper implements ExceptionMapper<IllegalArgumentException> {
+    public static class IllegalArgumentExceptionMapper implements ExceptionMapper<ClientErrorException> {
         @Override
-        public Response toResponse(IllegalArgumentException e) {
+        public Response toResponse(ClientErrorException e) {
 
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity( e.getMessage())
@@ -65,6 +66,6 @@ public class StuffApplicationWithProviderTest {
         JaxrsResponse response = resource.get();
 
         assertThat(response.status()).isEqualTo(Response.Status.BAD_REQUEST);
-        assertThat(response.content()).isEqualTo("Resource says your argument was illegal");
+        assertThat(response.content()).isEqualTo("HTTP 417 Expectation Failed");
     }
 }

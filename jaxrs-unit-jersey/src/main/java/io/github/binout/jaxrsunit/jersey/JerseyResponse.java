@@ -15,7 +15,7 @@
  */
 package io.github.binout.jaxrsunit.jersey;
 
-import com.sun.jersey.api.client.ClientResponse;
+
 import io.github.binout.jaxrsunit.internal.AbstractJaxrsResponse;
 
 import javax.ws.rs.core.MediaType;
@@ -23,20 +23,20 @@ import javax.ws.rs.core.Response;
 
 public class JerseyResponse extends AbstractJaxrsResponse {
 
-    private final ClientResponse clientResponse;
+    private final Response clientResponse;
 
-    JerseyResponse(ClientResponse clientResponse) {
+    JerseyResponse(Response clientResponse) {
         this.clientResponse = clientResponse;
     }
 
     @Override
     public String content() {
-        return clientResponse.getEntity(String.class);
+        return clientResponse.readEntity(String.class);
     }
 
     @Override
     public String contentLanguage() {
-        return clientResponse.getLanguage();
+        return clientResponse.getLanguage().getLanguage();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class JerseyResponse extends AbstractJaxrsResponse {
 
     @Override
     public MediaType mediaType() {
-        return clientResponse.getType();
+        return clientResponse.getMediaType();
     }
 
     @Override
