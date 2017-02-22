@@ -47,7 +47,7 @@ public class StuffApplicationWithProviderTest {
         public Response toResponse(IllegalArgumentException e) {
 
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(singletonMap("message", e.getMessage()))
+                    .entity( e.getMessage())
                     .type(MediaType.APPLICATION_JSON)
                     .build();
         }
@@ -66,6 +66,6 @@ public class StuffApplicationWithProviderTest {
         JaxrsResponse response = resource.get();
 
         assertThat(response.status()).isEqualTo(Response.Status.BAD_REQUEST);
-        assertThat(response.content()).isEqualTo("{\"message\":\"Resource says your argument was illegal\"}");
+        assertThat(response.content()).isEqualTo("Resource says your argument was illegal");
     }
 }
