@@ -42,6 +42,7 @@ public class JerseyServer implements JaxrsServer {
     public void configure(JaxrsServerConfig config) {
         baseUrl = config.getBaseUrl();
         resourceConfig.getClasses().addAll(config.getResources());
+        resourceConfig.getClasses().addAll(config.getProviders());
         initServer();
     }
 

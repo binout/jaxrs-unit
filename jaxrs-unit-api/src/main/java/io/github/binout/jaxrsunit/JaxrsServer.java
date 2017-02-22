@@ -82,7 +82,7 @@ public interface JaxrsServer {
                 }
                 @Override
                 public Class<? extends Annotation>[] annotations() {
-                    return new Class[]{Path.class, Provider.class};
+                    return new Class[]{Path.class};
                 }
             };
             final AnnotationDetector cf = new AnnotationDetector(reporter);
