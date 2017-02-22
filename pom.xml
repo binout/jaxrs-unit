@@ -12,7 +12,7 @@
 
     <groupId>io.github.binout</groupId>
     <artifactId>jaxrs-unit</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <inceptionYear>2013</inceptionYear>
@@ -36,6 +36,12 @@
             </roles>
         </developer>
     </developers>
+    <contributors>
+        <contributor>
+            <name>eis</name>
+            <email>eis@iki.fi</email>
+        </contributor>
+    </contributors>
 
     <name>JaxRs Unit</name>
     <description>A library for unit testing of JAX-RS application</description>
