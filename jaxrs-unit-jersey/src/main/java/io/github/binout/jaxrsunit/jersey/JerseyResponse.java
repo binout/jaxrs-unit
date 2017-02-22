@@ -49,4 +49,8 @@ public class JerseyResponse extends AbstractJaxrsResponse {
         return clientResponse.getType();
     }
 
+    @Override
+    public Response.Status status() {
+        return Response.Status.fromStatusCode(clientResponse.getStatus());
+    }
 }

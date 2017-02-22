@@ -52,4 +52,9 @@ public class RestEasyResponse extends AbstractJaxrsResponse {
         return (MediaType) headers.getFirst("Content-Type");
     }
 
+    @Override
+    public Response.Status status() {
+        return Response.Status.fromStatusCode(mockResponse.getStatus());
+    }
+
 }

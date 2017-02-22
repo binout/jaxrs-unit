@@ -16,6 +16,7 @@
 package io.github.binout.jaxrsunit;
 
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 public interface JaxrsResponse {
 
@@ -38,5 +39,7 @@ public interface JaxrsResponse {
 
     // 415
     boolean unsupportedMediaType();
+
+    Response.Status status();
 
 }
