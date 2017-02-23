@@ -49,7 +49,7 @@ public class JaxrsUnit {
      * @return an instance of JaxrsServer
      */
     public static JaxrsServer newServer(String baseResourcePackage) {
-        return configureServer(JaxrsServerConfig.empty().withScanResources(baseResourcePackage));
+        return configureServer(JaxrsServerConfig.empty().withScanClasses(baseResourcePackage));
     }
 
     private static JaxrsServer configureServer(JaxrsServerConfig config) {
