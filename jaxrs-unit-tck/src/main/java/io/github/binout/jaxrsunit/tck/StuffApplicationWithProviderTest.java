@@ -18,7 +18,6 @@ import javax.ws.rs.ext.Provider;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StuffApplicationWithProviderTest {
@@ -29,7 +28,7 @@ public class StuffApplicationWithProviderTest {
         public Set<Class<?>> getClasses() {
             Set<Class<?>> classes = new HashSet<>();
             classes.add(StuffResource.class);
-            classes.add(ClientExceptionJsonMapper.class);
+            classes.add(IllegalArgumentExceptionMapper.class);
             return classes;
         }
     }
@@ -42,7 +41,7 @@ public class StuffApplicationWithProviderTest {
         }
     }
     @Provider
-    public static class ClientExceptionJsonMapper implements ExceptionMapper<IllegalArgumentException> {
+    public static class IllegalArgumentExceptionMapper implements ExceptionMapper<IllegalArgumentException> {
         @Override
         public Response toResponse(IllegalArgumentException e) {
 
