@@ -70,7 +70,16 @@ public interface JaxrsServer {
             return this;
         }
 
-        public JaxrsServerConfig withScanResources(String basePack) {
+        public JaxrsServerConfig withScanResources(String baseResourcePackage) {
+            return withScanClasses(baseResourcePackage, new Class[]{Path.class});
+        }
+        public JaxrsServerConfig withScanProviders(String baseResourcePackage) {
+            return withScanClasses(baseResourcePackage, new Class[]{Provider.class});
+        }
+        public JaxrsServerConfig withScanClasses(String baseResourcePackage) {
+            return withScanClasses(baseResourcePackage, new Class[]{Path.class, Provider.class});
+        }
+        private JaxrsServerConfig withScanClasses(String baseResourcePackage, final Class[] annotations) {
             AnnotationDetector.TypeReporter reporter = new AnnotationDetector.TypeReporter() {
                 @Override
                 public void reportTypeAnnotation(Class<? extends Annotation> aClass, String s) {
@@ -82,16 +91,17 @@ public interface JaxrsServer {
                 }
                 @Override
                 public Class<? extends Annotation>[] annotations() {
-                    return new Class[]{Path.class};
+                    return annotations;
                 }
             };
             final AnnotationDetector cf = new AnnotationDetector(reporter);
             try {
-                cf.detect(basePack);
+                cf.detect(baseResourcePackage);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             return this;
+
         }
 
         public Collection<Class<?>> getResources() {
@@ -117,5 +127,6 @@ public interface JaxrsServer {
         public String getBaseUrl() {
             return baseUrl;
         }
+
     }
 }

@@ -22,6 +22,8 @@ import io.github.binout.jaxrsunit.JaxrsUnit;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.ws.rs.core.Response;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ScanTest {
@@ -51,5 +53,14 @@ public class ScanTest {
 
         assertThat(response.ok()).isTrue();
         assertThat(response.content()).isEqualTo("r2");
+    }
+    @Test
+    public void should_find_r3_and_get_bad_request() {
+        JaxrsResource resource = server.resource("/r3");
+
+        JaxrsResponse response = resource.get();
+
+        assertThat(response.status()).isEqualTo(Response.Status.BAD_REQUEST);
+        assertThat(response.content()).isEqualTo("illegal argument");
     }
 }
