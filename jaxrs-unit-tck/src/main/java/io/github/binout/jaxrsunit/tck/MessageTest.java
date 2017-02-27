@@ -27,7 +27,7 @@ import javax.ws.rs.core.Response;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MessageTest {
+public abstract class MessageTest {
 
     private JaxrsResource resource;
 

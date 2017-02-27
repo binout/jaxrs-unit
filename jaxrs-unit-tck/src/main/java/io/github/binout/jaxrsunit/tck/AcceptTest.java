@@ -27,7 +27,7 @@ import javax.ws.rs.core.MediaType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AcceptTest {
+public abstract class AcceptTest {
 
     private JaxrsResource resource;
 

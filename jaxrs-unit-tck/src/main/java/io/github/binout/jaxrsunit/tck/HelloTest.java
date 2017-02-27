@@ -27,7 +27,7 @@ import javax.ws.rs.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HelloTest {
+public abstract class HelloTest {
 
     @Path("/hello")
     public static class HelloResource {

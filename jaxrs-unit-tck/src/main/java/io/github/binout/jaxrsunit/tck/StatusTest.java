@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class StatusTest {
+public abstract class StatusTest {
     @Path("/hello")
     public static class HelloResource {
         @GET

@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class JsonTest {
+public abstract class JsonTest {
 
     @XmlRootElement //only for jersey
     public static class Person {
