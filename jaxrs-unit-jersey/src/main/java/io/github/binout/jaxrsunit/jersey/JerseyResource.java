@@ -15,73 +15,74 @@
  */
 package io.github.binout.jaxrsunit.jersey;
 
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 import io.github.binout.jaxrsunit.JaxrsResource;
 import io.github.binout.jaxrsunit.JaxrsResponse;
 
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 public class JerseyResource implements JaxrsResource {
 
-    private final WebResource webResource;
+    private final WebTarget webResource;
 
-    JerseyResource(WebResource resource) {
+    JerseyResource(WebTarget resource) {
         this.webResource = resource;
     }
 
     @Override
     public JaxrsResponse get() {
-        return new JerseyResponse(webResource.get(ClientResponse.class));
+        return new JerseyResponse(webResource.request().get(Response.class));
     }
 
     @Override
     public JaxrsResponse get(MediaType mediaType) {
-        return new JerseyResponse(webResource.accept(mediaType).get(ClientResponse.class));
+        return new JerseyResponse(webResource.request(mediaType).get(Response.class));
     }
 
     @Override
     public JaxrsResponse get(String mediaType) {
-        return new JerseyResponse(webResource.accept(mediaType).get(ClientResponse.class));
+        return new JerseyResponse(webResource.request(mediaType).get(Response.class));
     }
 
     @Override
     public JaxrsResponse post(String body) {
-        return new JerseyResponse(webResource.post(ClientResponse.class, body));
+        return new JerseyResponse(webResource.request().post(Entity.entity(body, MediaType.WILDCARD_TYPE), Response.class));
     }
 
     @Override
     public JaxrsResponse post(String mediaType, String body) {
-        return new JerseyResponse(webResource.type(mediaType).post(ClientResponse.class, body));
+        return new JerseyResponse(webResource.request().post(Entity.entity(body, mediaType), Response.class));
     }
 
     @Override
     public JaxrsResponse post(MediaType mediaType, String body) {
-        return new JerseyResponse(webResource.type(mediaType).post(ClientResponse.class, body));
+        return new JerseyResponse(webResource.request().post(Entity.entity(body, mediaType), Response.class));
     }
 
     @Override
     public JaxrsResponse put(String body) {
-        return new JerseyResponse(webResource.put(ClientResponse.class, body));
+        return new JerseyResponse(webResource.request().put(Entity.entity(body, MediaType.WILDCARD_TYPE),Response.class));
     }
 
     @Override
     public JaxrsResponse put(String mediaType, String body) {
-        return new JerseyResponse(webResource.type(mediaType).put(ClientResponse.class, body));
+        return new JerseyResponse(webResource.request().put(Entity.entity(body, mediaType),Response.class));
     }
 
     @Override
     public JaxrsResponse put(MediaType mediaType, String body) {
-        return new JerseyResponse(webResource.type(mediaType).put(ClientResponse.class, body));
+        return new JerseyResponse(webResource.request().put(Entity.entity(body, mediaType), Response.class));
     }
 
     @Override
     public JaxrsResponse delete() {
-        return new JerseyResponse(webResource.delete(ClientResponse.class));
+        return new JerseyResponse(webResource.request().delete(Response.class));
     }
 
     @Override
     public JaxrsResponse head() {
-        return new JerseyResponse(webResource.head());
+        return new JerseyResponse(webResource.request().method("HEAD", Response.class));
     }
 }

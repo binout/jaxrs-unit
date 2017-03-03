@@ -38,6 +38,7 @@ public interface JaxrsServer {
     class JaxrsServerConfig {
 
         private String baseUrl;
+        // resource, provider classes
         private Collection<Class<?>> classes;
 
         private JaxrsServerConfig(String baseUrl, Collection<Class<?>> classes) {
@@ -115,13 +116,17 @@ public interface JaxrsServer {
         }
 
         public Collection<Class<?>> getProviders() {
-            List<Class<?>> resources = new ArrayList<>();
+            List<Class<?>> providers = new ArrayList<>();
             for (Class<?> classObject : classes) {
                 if (classObject.isAnnotationPresent(Provider.class)) {
-                    resources.add(classObject);
+                    providers.add(classObject);
                 }
             }
-            return resources;
+            return providers;
+        }
+
+        public Collection<Class<?>> getClasses() {
+            return this.classes;
         }
 
         public String getBaseUrl() {

@@ -15,51 +15,74 @@
  */
 package io.github.binout.jaxrsunit.jersey;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.core.DefaultResourceConfig;
-import com.sun.jersey.test.framework.AppDescriptor;
-import com.sun.jersey.test.framework.LowLevelAppDescriptor;
-import com.sun.jersey.test.framework.spi.container.TestContainer;
-import com.sun.jersey.test.framework.spi.container.TestContainerFactory;
-import com.sun.jersey.test.framework.spi.container.inmemory.InMemoryTestContainerFactory;
+import java.net.URI;
+import java.util.HashSet;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.UriBuilder;
+
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.test.DeploymentContext;
+import org.glassfish.jersey.test.TestProperties;
+import org.glassfish.jersey.test.inmemory.InMemoryTestContainerFactory;
+import org.glassfish.jersey.test.spi.TestContainer;
+import org.glassfish.jersey.test.spi.TestContainerFactory;
+
 import io.github.binout.jaxrsunit.JaxrsResource;
 import io.github.binout.jaxrsunit.JaxrsServer;
 
-import javax.ws.rs.core.UriBuilder;
-
-public class JerseyServer implements JaxrsServer {
+public class JerseyServer implements JaxrsServer  {
 
     private String baseUrl;
-    private DefaultResourceConfig resourceConfig;
+    private ResourceConfig resourceConfig;
     private Client client;
     private TestContainer testContainer;
 
     public JerseyServer() {
-       resourceConfig = new DefaultResourceConfig();
+       resourceConfig = new ResourceConfig();
     }
 
     @Override
     public void configure(JaxrsServerConfig config) {
         baseUrl = config.getBaseUrl();
-        resourceConfig.getClasses().addAll(config.getResources());
-        resourceConfig.getClasses().addAll(config.getProviders());
+        HashSet<Class<?>> cl = new HashSet<Class<?>>();
+        cl.addAll(config.getProviders());
+        cl.addAll(config.getResources());
+        resourceConfig = new ResourceConfig(cl);
         initServer();
     }
-
     @Override
     public JaxrsResource resource(String uri) {
         uri = uri.replaceAll(baseUrl, "");
-        return new JerseyResource(client.resource(uri));
+        return new JerseyResource(client.target(uri));
+    }
+
+    private Client getClient(ClientConfig clientConfig) {
+        if (clientConfig == null) {
+            clientConfig = new ClientConfig();
+        }
+        return ClientBuilder.newClient(clientConfig);
+    }
+
+    private URI getBaseUri() {
+        if (testContainer != null)
+            return testContainer.getBaseUri();
+        return UriBuilder.fromUri("http://localhost/").port(TestProperties.DEFAULT_CONTAINER_PORT).build();
     }
 
     private void initServer() {
         if (testContainer != null) {
             testContainer.stop();
         }
-        AppDescriptor ad = new LowLevelAppDescriptor.Builder(resourceConfig).build();
+        DeploymentContext context = DeploymentContext.builder(resourceConfig).build();
         TestContainerFactory tcf = new InMemoryTestContainerFactory();
-        testContainer = tcf.create(UriBuilder.fromUri("/").build(), ad);
-        client = testContainer.getClient();
+
+        this.testContainer = tcf.create(getBaseUri(), context);
+
         testContainer.start();
+
+        this.client = getClient(testContainer.getClientConfig());
     }
 }

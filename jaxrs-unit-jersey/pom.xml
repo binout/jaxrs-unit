@@ -6,13 +6,13 @@
     <parent>
         <groupId>io.github.binout</groupId>
         <artifactId>jaxrs-unit</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>2.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>jaxrs-unit-jersey</artifactId>
 
     <properties>
-        <lib.jersey.version>1.8</lib.jersey.version>
+        <lib.jersey.version>2.25.1</lib.jersey.version>
     </properties>
 
     <dependencies>
@@ -22,16 +22,16 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey.jersey-test-framework</groupId>
-            <artifactId>jersey-test-framework-inmemory</artifactId>
+            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+            <artifactId>jersey-test-framework-provider-inmemory</artifactId>
             <version>${lib.jersey.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-json</artifactId>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
             <version>${lib.jersey.version}</version>
         </dependency>
-
+        
         <dependency>
             <groupId>io.github.binout</groupId>
             <artifactId>jaxrs-unit-tck</artifactId>
