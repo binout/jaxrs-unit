@@ -15,7 +15,7 @@ image:https://travis-ci.org/binout/jaxrs-unit.svg?branch=master["Build Status", 
 
 == Environment
 
-* +java-1.7+
+* +java-1.8+
 
 == Build
 
